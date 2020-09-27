@@ -1,0 +1,40 @@
+# TECLAS DE ATALHO VSCODE
+
+control ` : Abre o terminal
+
+
+
+
+# COMANDOS NO TERMINAL
+
+# Instala o TypeScript
+
+npm i -g typescript
+
+# Ver versão do TypeScript instalado
+
+tsc -v  
+
+# Transpila o arquivo .ts para .js
+
+tsc arquivo.ts  
+
+# Executa o arquivo JavaScript
+
+node arquivo.js 
+
+# Ver versão do git instalada
+
+git --version 
+
+# Para criar um projeto react, usando um template: npx executa funções/pacotes que estão na nuvem npx
+
+npx create-react-app alga-stock --template typescript
+
+
+
+
+
+## NOTAS GERAIS ##
+
+NVM : Solução para testar o comportamento do seus módulos em distintas versões Node.
