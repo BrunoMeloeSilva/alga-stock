@@ -31,10 +31,20 @@ git --version
 
 npx create-react-app alga-stock --template typescript
 
+# Instala o SASS que é um pre-processador para CSS, para trazer facilidades na codificação CSS
+# O -D é para instalar apenas no ambiente de desenvolvimento
 
+npm i -D node-sass
 
 
 
 ## NOTAS GERAIS ##
 
 NVM : Solução para testar o comportamento do seus módulos em distintas versões Node.
+
+
+
+
+## PLUGINS ##
+
+Code Runner : Apresenta um botão na IDE para rodar Javascript
