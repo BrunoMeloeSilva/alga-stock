@@ -9,7 +9,17 @@ const initialFormState = {
     stock: ''
 }
 
-const ProductsForm = () => {
+export interface ProductCreator {
+    name: string
+    price: number
+    stock: number
+}
+
+declare interface ProductFormProps {
+    onSubmit: (product: ProductCreator) => void
+}
+
+const ProductsForm: React.FC<ProductFormProps> = (props) => {
 
     const [form, setForm] = useState(initialFormState)
 
@@ -22,15 +32,27 @@ const ProductsForm = () => {
         })
     }
 
-    return <Form title="Product form" onSubmit={() => console.log(form)}>
+    const handleFormSubmit = () => {
+        const productDto = {
+            name: String(form.name),
+            price: parseFloat(form.price),
+            stock: Number(form.stock)
+        }
+        props.onSubmit(productDto)
+        setForm(initialFormState)
+    }
+
+    return <Form title="Product form" onSubmit={handleFormSubmit}>
         <Input
             onChange={handleInputChange}
+            value={form.name}
             name="name"
             label="Name"
             placeholder="Ex.: Biscoito"
             required/>
           <Input
             onChange={handleInputChange}
+            value={form.price}
             label="Price"
             name="price"
             type="number"
@@ -40,6 +62,7 @@ const ProductsForm = () => {
             required/>
           <Input
             onChange={handleInputChange}
+            value={form.stock}
             label="Stock"
             name="stock"
             type="number"
