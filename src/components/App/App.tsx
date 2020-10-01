@@ -2,7 +2,15 @@ import React from 'react';
 import Header from '../Header/Header';
 import './App.css';
 import Container from '../shared/Container/Container';
-import Table from '../shared/Table/Table';
+import Table, { TableHeader } from '../shared/Table/Table';
+import Products from '../shared/Table/Table.mockdata';
+
+const headers: TableHeader[] = [
+  { key: 'id', value: '#' },
+  { key: 'name', value: 'Product' },
+  { key: 'price', value: 'Price', right: true },
+  { key: 'stock', value: 'Available Stock', right: true }
+]
 
 
 function App() {
@@ -10,7 +18,9 @@ function App() {
     <div className="App">
       <Header title="AlgaStock"/>
       <Container>
-        <Table/>
+        <Table
+          headers={headers}
+          data={Products} />
       </Container>
     </div>
   );
