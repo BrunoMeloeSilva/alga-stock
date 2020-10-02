@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import './App.css';
+import Header from '../Header';
+import Container from '../../shared/Container';
+import Table, { TableHeader } from '../../shared/Table';
+import Products, { Product } from '../../shared/Table/Table.mockdata';
 import ProductForm, { ProductCreator } from '../Products/ProductForm';
-import Table, { TableHeader } from '../shared/Table/Table';
-import Products, { Product } from '../shared/Table/Table.mockdata';
-import Header from '../Header/Header';
-import Container from '../shared/Container/Container';
 
 const headers: TableHeader[] = [
   { key: 'id', value: '#' },

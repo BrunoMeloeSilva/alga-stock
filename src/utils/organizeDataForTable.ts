@@ -1,28 +1,36 @@
-import { TableHeader } from "../components/shared/Table/Table"
+import { TableHeader } from "../shared/Table"
 
 type IndexedHeaders = {
-    [key: string]: TableHeader
+  [key: string]: TableHeader
 }
 
 type OrganizedItem = {
-    [key: string]: any
+  [key: string]: any
 }
 
-export default function organizeData(data: any[], headers: TableHeader[]): [OrganizedItem[], IndexedHeaders] {
-    const indexedHeaders: IndexedHeaders = {}
-    headers.forEach( header => indexedHeaders[header.key] = header )
-    const headerKeysInOrder = Object.keys(indexedHeaders)
-    //console.log(headerKeysInOrder)
-    const organizedData = data.map(item => {
-        const organizedItem: OrganizedItem = {}
-        headerKeysInOrder.forEach(key => {
-            organizedItem[key] = item[key]
-        })
+export default function organizeData (data: any[], headers: TableHeader[]):
+  [OrganizedItem[], IndexedHeaders] {
+  const indexedHeaders: IndexedHeaders = {}
 
-        organizedItem.$original = item
+  headers.forEach(header => {
+    indexedHeaders[header.key] = {
+      ...header
+    }
+  })
 
-        return organizedItem
+  const headerKeysInOrder = Object.keys(indexedHeaders)
+
+  const organizedData = data.map(item => {
+    const organizedItem: OrganizedItem = {}
+
+    headerKeysInOrder.forEach(key => {
+      organizedItem[key] = item[key]
     })
-    //console.table(organizedData)
-    return [organizedData, indexedHeaders]
+
+    organizedItem.$original = item
+
+    return organizedItem
+  })
+
+  return [organizedData, indexedHeaders]
 }
