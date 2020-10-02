@@ -2,75 +2,118 @@ import React, { useState } from 'react'
 import Button from '../shared/Button/Button'
 import Form from '../shared/Form/Form'
 import Input from '../shared/Input/Input'
+import { Product } from '../shared/Table/Table.mockdata'
 
-const initialFormState = {
-    name: '',
-    price: '',
-    stock: ''
+
+declare interface InitialFormState {
+  id?: number
+  name: string
+  price: string
+  stock: string
 }
 
 export interface ProductCreator {
-    name: string
-    price: number
-    stock: number
+  name: string
+  price: number
+  stock: number
 }
 
 declare interface ProductFormProps {
-    onSubmit: (product: ProductCreator) => void
+  form?: Product
+  onSubmit?: (product: ProductCreator) => void
+  onUpdate?: (product: Product) => void
 }
 
-const ProductsForm: React.FC<ProductFormProps> = (props) => {
+const ProductForm: React.FC<ProductFormProps> = (props) => {
+  const initialFormState: InitialFormState = props.form
+    ? {
+        id: props.form.id,
+        name: props.form.name,
+        price: String(props.form.price),
+        stock: String(props.form.stock),
+      }
+    : {
+        name: '',
+        price: '',
+        stock: ''
+      }
 
-    const [form, setForm] = useState(initialFormState)
+  const [form, setForm] = useState(initialFormState)
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { value, name } = event.target
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = event.target
 
-        setForm({
-            ...form,
-            [name]: value
-        })
+    setForm({
+      ...form,
+      [name]: value
+    })
+  }
+
+  const updateProduct = (product: InitialFormState) => {
+    const productDto = {
+      id: Number(product.id),
+      name: String(product.name),
+      price: parseFloat(product.price),
+      stock: Number(product.stock)
     }
 
-    const handleFormSubmit = () => {
-        const productDto = {
-            name: String(form.name),
-            price: parseFloat(form.price),
-            stock: Number(form.stock)
-        }
-        props.onSubmit(productDto)
-        setForm(initialFormState)
+    props.onUpdate &&
+      props.onUpdate(productDto)
+  }
+
+  const createProduct = (product: InitialFormState) => {
+    const productDto = {
+      name: String(product.name),
+      price: parseFloat(product.price),
+      stock: Number(product.stock)
     }
 
-    return <Form title="Product form" onSubmit={handleFormSubmit}>
-        <Input
-            onChange={handleInputChange}
-            value={form.name}
-            name="name"
-            label="Name"
-            placeholder="Ex.: Biscoito"
-            required/>
-          <Input
-            onChange={handleInputChange}
-            value={form.price}
-            label="Price"
-            name="price"
-            type="number"
-            step="0.01"
-            min="0"
-            placeholder="Ex.: 1.24"
-            required/>
-          <Input
-            onChange={handleInputChange}
-            value={form.stock}
-            label="Stock"
-            name="stock"
-            type="number"
-            min="0"
-            placeholder="Ex.: 234"
-            required/>
-            <Button>Submit</Button>
-    </Form>
+    props.onSubmit &&
+      props.onSubmit(productDto)
+  }
+
+  const handleFormSubmit = () => {
+    form.id
+      ? updateProduct(form)
+      : createProduct(form)
+    
+    setForm(initialFormState)
+  }
+
+  return <Form onSubmit={handleFormSubmit}>
+    <Input
+      onChange={handleInputChange}
+      value={form.name}
+      name="name"
+      label="Name"
+      placeholder="E.g.: Cookie"
+      required
+    />
+    <Input
+      onChange={handleInputChange}
+      value={form.price}
+      name="price"
+      label="Price"
+      type="number"
+      step="0.01"
+      min="0"
+      placeholder="E.g.: 1.25"
+      required
+    />
+    <Input
+      onChange={handleInputChange}
+      value={form.stock}
+      name="stock"
+      label="Stock"
+      type="number"
+      min="0"
+      placeholder="E.g.: 15"
+      required
+    />
+    <Button>
+      Submit
+    </Button>
+  </Form>
 }
 
-export default ProductsForm
+export default ProductForm
