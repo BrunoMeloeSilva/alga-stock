@@ -41,13 +41,17 @@ npm i -D node-sass
 
 npm i sweetalert2
 
+# No projeto usaremos Axios
+
+npm i axios
+
 
 
 ## NOTAS GERAIS ##
 
 NVM : Solução para testar o comportamento do seus módulos em distintas versões Node.
 
-
+* Esse projeto usa a API : https://github.com/algaworks/api-alga-stock
 
 
 ## PLUGINS ##
