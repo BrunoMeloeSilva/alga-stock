@@ -36,6 +36,11 @@ npx create-react-app alga-stock --template typescript
 
 npm i -D node-sass
 
+# Instala o SweetAlert2, uma biblieteca de compomentes de alertas bonitinhos 
+# https://sweetalert2.github.io/
+
+npm i sweetalert2
+
 
 
 ## NOTAS GERAIS ##
